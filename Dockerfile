@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 ARG USERNAME=ubuntu
 ARG DEBIAN_FRONTEND=noninteractive
+EXPOSE 3000
 # ARG USER_UID=1000
 # ARG USER_GID=$USER_UID
 
@@ -9,9 +10,10 @@ ARG DEBIAN_FRONTEND=noninteractive
     # && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     #
     # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
-    RUN apt-get update \
+RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y man-db apt-utils \
+    && apt-get install -y apt-utils \
+    && apt-get install -y curl zsh man-db vim \
     && apt-get install -y build-essential git locales dialog \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
