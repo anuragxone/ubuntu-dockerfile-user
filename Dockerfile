@@ -19,9 +19,11 @@ RUN apt-get update \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
+RUN chsh -s /bin/zsh
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
 # ********************************************************
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
+ENTRYPOINT [ "/bin/zsh" ]
 USER $USERNAME
