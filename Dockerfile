@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 ARG USERNAME=ubuntu
 ARG DEBIAN_FRONTEND=noninteractive
-EXPOSE 3000
+# EXPOSE 3000
 # ARG USER_UID=1000
 # ARG USER_GID=$USER_UID
 
@@ -25,5 +25,6 @@ RUN chsh -s /bin/zsh
 # ********************************************************
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
-ENTRYPOINT [ "/bin/zsh" ]
 USER $USERNAME
+WORKDIR /home/${USERNAME}
+ENTRYPOINT [ "/bin/zsh" ]
