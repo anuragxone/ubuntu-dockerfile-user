@@ -45,11 +45,19 @@ SHELL [ "/bin/zsh", "-c" ]
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # mise-en-place
-RUN curl https://mise.run | sh \
-    && echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc \
-    && eval "$(~/.local/bin/mise activate zsh)" \
-    && mise use -g ruby \
-    && mise use -g postgres \
-    && gem install rails
+RUN <<EOF
+# set up mise
+curl https://mise.run | sh 
+echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+# install ruby and postgres
+MISE=.local/bin/mise
+$MISE use -g ruby
+$MISE use -g postgres
+EOF
+
+# nvim set up
+# RUN <<EOF
+# 
+# EOF
 
 ENTRYPOINT [ "/bin/zsh" ]
